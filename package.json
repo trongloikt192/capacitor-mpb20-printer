@@ -1,0 +1,61 @@
+{
+  "name": "capacitor-mk-printer",
+  "version": "0.0.2",
+  "description": "MK printer",
+  "main": "dist/plugin.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/esm/index.d.ts",
+  "scripts": {
+    "build": "npm run clean && tsc",
+    "clean": "rimraf ./dist",
+    "lint": "npm run prettier -- --check",
+    "prettier": "prettier \"**/*.{css,html,ts,js,java}\"",
+    "prettier:write": "npm run prettier -- --write"
+  },
+  "author": "trongloikt192@gmail.com",
+  "license": "MIT",
+  "peerDependencies": {
+    "@capacitor/core": "^7.0.0"
+  },
+  "devDependencies": {
+    "@capacitor/core": "^7.0.0",
+    "@capacitor/ios": "^7.0.0",
+    "@capacitor/android": "^7.0.0",
+    "prettier": "^3.5.3",
+    "prettier-plugin-java": "^2.6.7",
+    "rimraf": "^5.0.0",
+    "typescript": "^5.0.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trongloikt192/capacitor-mk-printer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/trongloikt192/capacitor-mk-printer/issues"
+  },
+  "keywords": [
+    "capacitor",
+    "plugin",
+    "native",
+    "printer",
+    "mk-printer"
+  ],
+  "files": [
+    "dist/",
+    "ios/Plugin/",
+    "android/libs/",
+    "android/src/main/",
+    "android/build.gradle",
+    "android/gradle.properties",
+    "android/settings.gradle",
+    "CapacitorMkPrinter.podspec"
+  ],
+  "capacitor": {
+    "ios": {
+      "src": "ios"
+    },
+    "android": {
+      "src": "android"
+    }
+  }
+}

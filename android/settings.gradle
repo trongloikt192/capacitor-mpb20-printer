@@ -1,0 +1,5 @@
+include ':capacitor-android'
+project(':capacitor-android').projectDir = new File('../node_modules/@capacitor/android/capacitor')
+
+include ':capacitor-mk-printer'
+project(':capacitor-mk-printer').projectDir = new File('../node_modules/capacitor-mk-printer/android')
