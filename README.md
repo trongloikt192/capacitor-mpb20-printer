@@ -29,7 +29,7 @@ npx cap sync
 listenPrinters() => Promise<{ devices: BluetoothDevice[] }>
 ```
 
-Liệt kê danh sách máy in có thể kết nối.
+List available printers that can be connected.
 
 **Returns:** <code>Promise&lt;{ devices: BluetoothDevice[] }&gt;</code>
 
@@ -41,11 +41,11 @@ Liệt kê danh sách máy in có thể kết nối.
 connectPrinter(options: { macAddress: string }) => Promise<any>
 ```
 
-Kết nối tới máy in.
+Connect to a printer.
 
 | Param         | Type                                 | Description                    |
 | ------------- | ------------------------------------ | ------------------------------ |
-| **`options`** | <code>{ macAddress: string }</code> | Địa chỉ MAC của máy in cần kết nối |
+| **`options`** | <code>{ macAddress: string }</code> | MAC address of the printer to connect |
 
 **Returns:** <code>Promise&lt;any&gt;</code>
 
@@ -57,7 +57,7 @@ Kết nối tới máy in.
 getCurrentPrinter() => Promise<{ name: string; macAddress: string }>
 ```
 
-Lấy thông tin máy in hiện đang kết nối.
+Get information about the currently connected printer.
 
 **Returns:** <code>Promise&lt;{ name: string; macAddress: string }&gt;</code>
 
@@ -69,11 +69,11 @@ Lấy thông tin máy in hiện đang kết nối.
 printImage(options: PrintImageOptions) => Promise<any>
 ```
 
-Thực hiện in hình ảnh.
+Print an image.
 
 | Param         | Type                                                          | Description                |
 | ------------- | ------------------------------------------------------------- | -------------------------- |
-| **`options`** | <code><a href="#printimageoptions">PrintImageOptions</a></code> | Tùy chọn in hình ảnh       |
+| **`options`** | <code><a href="#printimageoptions">PrintImageOptions</a></code> | Image printing options     |
 
 **Returns:** <code>Promise&lt;any&gt;</code>
 
@@ -85,15 +85,15 @@ Thực hiện in hình ảnh.
 
 | Property          | Type                | Description                        |
 | ----------------- | ------------------- | ---------------------------------- |
-| **`name`**        | <code>string</code> | Tên thiết bị                       |
-| **`macAddress`**  | <code>string</code> | Địa chỉ MAC của thiết bị           |
-| **`type`**        | <code>string</code> | Loại thiết bị (tùy chọn)           |
+| **`name`**        | <code>string</code> | Device name                        |
+| **`macAddress`**  | <code>string</code> | Device MAC address                 |
+| **`type`**        | <code>string</code> | Device type (optional)             |
 
 #### PrintImageOptions
 
 | Property        | Type                | Description                        |
 | --------------- | ------------------- | ---------------------------------- |
-| **`filePath`**  | <code>string</code> | Đường dẫn đến file hình ảnh cần in |
+| **`filePath`**  | <code>string</code> | Path to the image file to print    |
 
 </docgen-api>
 
@@ -101,7 +101,7 @@ Thực hiện in hình ảnh.
 
 ### Android
 
-Thêm các quyền sau vào file `AndroidManifest.xml` của bạn:
+Add these permissions to your `AndroidManifest.xml` file:
 
 ```xml
 <uses-permission android:name="android.permission.BLUETOOTH" />
@@ -114,13 +114,13 @@ Thêm các quyền sau vào file `AndroidManifest.xml` của bạn:
 
 ### iOS
 
-Thêm các mô tả quyền sau vào file `Info.plist` của bạn:
+Add these permission descriptions to your `Info.plist` file:
 
 ```xml
 <key>NSBluetoothAlwaysUsageDescription</key>
-<string>Ứng dụng cần quyền truy cập Bluetooth để kết nối với máy in</string>
+<string>This app needs Bluetooth access to connect to printers</string>
 <key>NSBluetoothPeripheralUsageDescription</key>
-<string>Ứng dụng cần quyền truy cập Bluetooth để kết nối với máy in</string>
+<string>This app needs Bluetooth access to connect to printers</string>
 ```
 
 ## Usage Example
@@ -128,7 +128,7 @@ Thêm các mô tả quyền sau vào file `Info.plist` của bạn:
 ```typescript
 import { MkPrinter } from 'capacitor-mk-printer';
 
-// Liệt kê các máy in có sẵn
+// List available printers
 async function scanPrinters() {
   try {
     const result = await MkPrinter.listenPrinters();
@@ -138,7 +138,7 @@ async function scanPrinters() {
   }
 }
 
-// Kết nối với máy in
+// Connect to a printer
 async function connect(macAddress: string) {
   try {
     await MkPrinter.connectPrinter({ macAddress });
@@ -148,7 +148,7 @@ async function connect(macAddress: string) {
   }
 }
 
-// Lấy thông tin máy in hiện tại
+// Get current printer information
 async function getCurrentPrinter() {
   try {
     const printer = await MkPrinter.getCurrentPrinter();
@@ -158,7 +158,7 @@ async function getCurrentPrinter() {
   }
 }
 
-// In hình ảnh
+// Print an image
 async function printImage(filePath: string) {
   try {
     await MkPrinter.printImage({ filePath });
