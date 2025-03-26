@@ -19,7 +19,6 @@ import com.android.print.sdk.PrinterConstants.Command;
 import com.android.print.sdk.PrinterInstance;
 import com.android.print.sdk.util.Utils;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -67,7 +66,7 @@ public class PrintUtils {
 
     /**
      * Disconnects and closes the printer connection
-     * @param printerInstance The printer instance to disconnect
+     * @param context The application context
      */
     public static void disconnectPrinter(Context context) {
         PrinterInstance printerInstance = getCurrentPrinter(context);
@@ -206,7 +205,7 @@ public class PrintUtils {
         Bitmap bitmap1 = null;
         try {
             //Bitmap bitmapOrigin = BitmapFactory.decodeStream(resources.getAssets().open("receipt_2items.png"));
-            Bitmap bitmapOrigin = convertBase64ToBitmap(base64Image);
+            Bitmap bitmapOrigin = convertBase64ToBitmap(base64Data);
             bitmap1 = prepareImageForPrinting(bitmapOrigin);
         } catch (Exception e) {
             e.printStackTrace();
@@ -335,7 +334,7 @@ public class PrintUtils {
      * @return The decoded Bitmap
      */
     private static Bitmap convertBase64ToBitmap(String base64Data) throws IOException {
-       byte[] decodedBytes = android.util.Base64.decode(base64Data, android.util.Base64.DEFAULT);
+       byte[] decodedBytes = Base64.decode(base64Data, Base64.DEFAULT);
        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
     }
 
