@@ -63,13 +63,7 @@ export interface MkPrinterPlugin {
 interface RowOption {
   text: string,
   fontSize?: number,
-  fontType?: string,
-  fontWidth?: number,
-  fontHeight?: number,
-  fontStyle?: string,
   fontAlign?: string,
-  fontColor?: string,
-  fontBackgroundColor?: string,
   fontUnderline?: boolean
 }
 
@@ -78,7 +72,7 @@ export interface PrintTextOptions {
 }
 
 export interface PrintImageOptions {
-  filePath: string,
+  base64Data: string,
 }
 
 export interface BluetoothDevices {

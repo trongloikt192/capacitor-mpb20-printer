@@ -1,6 +1,6 @@
 {
   "name": "capacitor-mk-printer",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "description": "MK printer",
   "main": "dist/plugin.js",
   "module": "dist/esm/index.js",

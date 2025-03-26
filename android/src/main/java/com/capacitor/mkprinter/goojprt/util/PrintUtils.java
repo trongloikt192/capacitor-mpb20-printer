@@ -10,7 +10,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Handler;
 import android.os.Looper;
-
+import android.util.Base64;
 
 import com.android.print.sdk.Barcode;
 import com.android.print.sdk.bluetooth.BluetoothPort;
@@ -19,6 +19,7 @@ import com.android.print.sdk.PrinterConstants.Command;
 import com.android.print.sdk.PrinterInstance;
 import com.android.print.sdk.util.Utils;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -198,14 +199,14 @@ public class PrintUtils {
     /**
      * Prints an image to the printer
      * @param mPrinter
-     * @param base64Image
+     * @param base64Data
      */
-    public static void printImage(PrinterInstance mPrinter, String filePath) {
+    public static void printImage(PrinterInstance mPrinter, String base64Data) {
         mPrinter.init();
         Bitmap bitmap1 = null;
         try {
-//            Bitmap bitmapOrigin = BitmapFactory.decodeStream(resources.getAssets().open("receipt_2items.png"));
-            Bitmap bitmapOrigin = BitmapFactory.decodeFile(filePath);
+            //Bitmap bitmapOrigin = BitmapFactory.decodeStream(resources.getAssets().open("receipt_2items.png"));
+            Bitmap bitmapOrigin = convertBase64ToBitmap(base64Image);
             bitmap1 = prepareImageForPrinting(bitmapOrigin);
         } catch (Exception e) {
             e.printStackTrace();
@@ -330,12 +331,12 @@ public class PrintUtils {
 
     /**
      * Converts a base64 encoded string to a Bitmap
-     * @param base64Image The base64 encoded image string
+     * @param base64Data The base64 encoded image string
      * @return The decoded Bitmap
      */
-    private static Bitmap convertBase64ToBitmap(String base64Image) throws IOException {
-        byte[] decodedBytes = android.util.Base64.decode(base64Image, android.util.Base64.DEFAULT);
-        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+    private static Bitmap convertBase64ToBitmap(String base64Data) throws IOException {
+       byte[] decodedBytes = android.util.Base64.decode(base64Data, android.util.Base64.DEFAULT);
+       return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
     }
 
     /**

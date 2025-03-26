@@ -91,9 +91,9 @@ Print an image.
 
 #### PrintImageOptions
 
-| Property        | Type                | Description                        |
-| --------------- | ------------------- | ---------------------------------- |
-| **`filePath`**  | <code>string</code> | Path to the image file to print    |
+| Property         | Type                | Description  |
+|------------------| ------------------- |--------------|
+| **`base64Data`** | <code>string</code> | image base64 |
 
 </docgen-api>
 
@@ -159,9 +159,9 @@ async function getCurrentPrinter() {
 }
 
 // Print an image
-async function printImage(filePath: string) {
+async function printImage(base64Data: string) {
   try {
-    await MkPrinter.printImage({ filePath });
+    await MkPrinter.printImage({ base64Data });
     console.log('Image printed successfully');
   } catch (error) {
     console.error('Error printing image:', error);

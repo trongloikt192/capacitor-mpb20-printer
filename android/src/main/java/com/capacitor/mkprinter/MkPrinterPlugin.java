@@ -2,20 +2,11 @@ package com.capacitor.mkprinter;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.ColorMatrix;
-import android.graphics.ColorMatrixColorFilter;
-import android.graphics.Paint;
 import android.os.Looper;
 import android.provider.Settings;
-import android.util.Base64;
 import android.util.Log;
 
 import com.getcapacitor.JSArray;
@@ -47,7 +38,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.Set;
 
 @CapacitorPlugin(
@@ -93,7 +83,7 @@ public class MkPrinterPlugin extends Plugin implements DiscoveryHandler {
 
     @PluginMethod
     public void printImage(PluginCall call)  {
-        String filePath = call.getString("filePath");
+        String base64Data = call.getString("base64Data");
 
         new Thread(new Runnable() {
             @Override
@@ -102,7 +92,7 @@ public class MkPrinterPlugin extends Plugin implements DiscoveryHandler {
                     Looper.prepare();
 
                     PrinterInstance mPrinter = PrintUtils.getCurrentPrinter(getContext());
-                    PrintUtils.printImage(mPrinter, filePath);
+                    PrintUtils.printImage(mPrinter, base64Data);
                     call.resolve();
 
                     Looper.myLooper().quit();
@@ -212,7 +202,7 @@ public class MkPrinterPlugin extends Plugin implements DiscoveryHandler {
     private JSONObject deviceToJSON(BluetoothDevice device) throws JSONException {
         JSONObject json = new JSONObject();
         json.put("name", device.getName());
-        json.put("address", device.getAddress());
+        json.put("macAddress", device.getAddress());
         json.put("id", device.getAddress());
         if (device.getBluetoothClass() != null) {
             json.put("class", device.getBluetoothClass().getDeviceClass());
