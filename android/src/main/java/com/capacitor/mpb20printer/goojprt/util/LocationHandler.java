@@ -1,4 +1,4 @@
-package com.capacitor.mkprinter.goojprt.util;
+package com.capacitor.mpb20printer.goojprt.util;
 
 import android.content.Context;
 import android.location.LocationManager;

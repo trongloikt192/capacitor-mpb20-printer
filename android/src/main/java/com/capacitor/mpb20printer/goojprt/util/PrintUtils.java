@@ -1,4 +1,4 @@
-package com.capacitor.mkprinter.goojprt.util;
+package com.capacitor.mpb20printer.goojprt.util;
 
 
 import android.bluetooth.BluetoothAdapter;
@@ -21,6 +21,7 @@ import com.android.print.sdk.util.Utils;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -385,5 +386,26 @@ public class PrintUtils {
 
     private static void clearBluetoothDeviceInfo() {
         bluetoothDevice = null;
+    }
+
+    public static String convertBase64ToFile(String base64Data) {
+        String filePath = null;
+        try {
+            byte[] decodedBytes = Base64.decode(base64Data, Base64.DEFAULT);
+            filePath = File.createTempFile("temp_image", ".png").getAbsolutePath();
+            FileOutputStream fos = new FileOutputStream(filePath);
+            fos.write(decodedBytes);
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return filePath;
+    }
+
+    public static void removeTempFile(String filePath) {
+        File file = new File(filePath);
+        if (file.exists()) {
+            file.delete();
+        }
     }
 }

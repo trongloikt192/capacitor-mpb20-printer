@@ -1,4 +1,4 @@
-export interface MkPrinterPlugin {
+export interface Mpb20PrinterPlugin {
   echo(options: { value: string }): Promise<{ value: string }>;
 
   /**

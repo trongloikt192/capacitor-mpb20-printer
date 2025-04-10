@@ -1,4 +1,5 @@
-package com.capacitor.mkprinter;
+package com.capacitor.mpb20printer;
+
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -9,7 +10,8 @@ import android.os.Looper;
 import android.provider.Settings;
 import android.util.Log;
 
-import com.getcapacitor.JSArray;
+import com.capacitor.mpb20printer.seiko.Function;
+
 import com.getcapacitor.JSObject;
 import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
@@ -17,21 +19,14 @@ import com.getcapacitor.PluginMethod;
 import com.getcapacitor.annotation.CapacitorPlugin;
 import com.getcapacitor.annotation.Permission;
 
+import com.seikoinstruments.sdk.thermalprinter.PrinterManager;
 import com.zebra.sdk.comm.BluetoothConnectionInsecure;
 import com.zebra.sdk.comm.Connection;
 import com.zebra.sdk.comm.ConnectionException;
-import com.zebra.sdk.graphics.internal.ZebraImageAndroid;
-import com.zebra.sdk.printer.PrinterStatus;
-import com.zebra.sdk.printer.SGD;
-import com.zebra.sdk.printer.ZebraPrinter;
-import com.zebra.sdk.printer.ZebraPrinterFactory;
-import com.zebra.sdk.printer.ZebraPrinterLanguageUnknownException;
-import com.zebra.sdk.printer.ZebraPrinterLinkOs;
-import com.zebra.sdk.printer.discovery.BluetoothDiscoverer;
 import com.zebra.sdk.printer.discovery.DiscoveredPrinter;
 import com.zebra.sdk.printer.discovery.DiscoveryHandler;
 
-import com.capacitor.mkprinter.goojprt.util.PrintUtils;
+import com.capacitor.mpb20printer.goojprt.util.PrintUtils;
 import com.android.print.sdk.PrinterInstance;
 
 import org.json.JSONArray;
@@ -40,8 +35,11 @@ import org.json.JSONObject;
 
 import java.util.Set;
 
+
+
+
 @CapacitorPlugin(
-        name = "MkPrinter",
+        name = "Mpb20Printer",
         permissions = {
                 @Permission(
                         alias = "bluetooth",
@@ -53,17 +51,35 @@ import java.util.Set;
                 )
         }
 )
-public class MkPrinterPlugin extends Plugin implements DiscoveryHandler {
-    private static final String LOG_TAG = "MkPrinterPlugin";
+public class Mpb20PrinterPlugin extends Plugin implements DiscoveryHandler {
+    private static final String LOG_TAG = "Mpb20PrinterPlugin";
     private PluginCall call;
     private boolean printerFound;
     private Connection thePrinterConn;
-    private PrinterStatus printerStatus;
-    private ZebraPrinter printer;
-    private final int MAX_PRINT_RETRIES = 1;
     private BluetoothAdapter bluetoothAdapter;
 
-    public MkPrinterPlugin() { }
+
+
+    private Function mSdkFunction = null;
+
+    protected static final int SEND_TIMEOUT_DEFAULT = 10000;
+    protected static final int RECEIVE_TIMEOUT_DEFAULT = 10000;
+    protected static final int SOCKET_KEEPING_TIME_DEFAULT = 300000;
+    protected static final int SECURE_CONNECTION_OFF = 0;
+
+    public Mpb20PrinterPlugin() {
+        if(mSdkFunction == null) {
+            mSdkFunction = new Function(getContext());
+            mSdkFunction.applySettings(
+                SOCKET_KEEPING_TIME_DEFAULT,
+                SEND_TIMEOUT_DEFAULT,
+                RECEIVE_TIMEOUT_DEFAULT,
+                PrinterManager.CODE_PAGE_1252,
+                PrinterManager.COUNTRY_USA,
+                SECURE_CONNECTION_OFF
+            );
+        }
+    }
 
     @PluginMethod
     public void printText(PluginCall call){
@@ -92,7 +108,12 @@ public class MkPrinterPlugin extends Plugin implements DiscoveryHandler {
                     Looper.prepare();
 
                     PrinterInstance mPrinter = PrintUtils.getCurrentPrinter(getContext());
-                    PrintUtils.printImage(mPrinter, base64Data);
+//                     PrintUtils.printImage(mPrinter, base64Data);
+
+                    String imagePath = PrintUtils.convertBase64ToFile(base64Data);
+                    mSdkFunction.sendDataFileSample(imagePath);
+                    PrintUtils.removeTempFile(imagePath);
+
                     call.resolve();
 
                     Looper.myLooper().quit();
@@ -112,7 +133,15 @@ public class MkPrinterPlugin extends Plugin implements DiscoveryHandler {
     public void connectPrinter(PluginCall call){
         try {
             String MACAddress = call.getString("macAddress");
-            PrintUtils.connectPrinter(getContext(), MACAddress);
+//            PrintUtils.connectPrinter(getContext(), MACAddress);
+
+            // Perform connection
+            mSdkFunction.connectSample(
+                    PrinterManager.PRINTER_TYPE_BLUETOOTH,
+                    PrinterManager.PRINTER_MODEL_MP_B20,
+                    MACAddress
+            );
+
             call.resolve();
         } catch (Exception e) {
             Log.e(LOG_TAG, e.getMessage());
@@ -234,4 +263,5 @@ public class MkPrinterPlugin extends Plugin implements DiscoveryHandler {
         Log.e(LOG_TAG, "An error occurred while searching for printers. Message: " + s);
         call.reject(s);
     }
+
 }

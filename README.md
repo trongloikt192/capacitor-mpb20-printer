@@ -1,11 +1,11 @@
 # Capacitor MK Printer
 
-A Capacitor plugin for MK printer integration.
+A Capacitor plugin for MP-B20 printer integration.
 
 ## Installation
 
 ```bash
-npm install capacitor-mk-printer
+npm install capacitor-mpb20-printer
 npx cap sync
 ```
 
@@ -126,12 +126,12 @@ Add these permission descriptions to your `Info.plist` file:
 ## Usage Example
 
 ```typescript
-import { MkPrinter } from 'capacitor-mk-printer';
+import { Mpb20Printer } from 'capacitor-mpb20-printer';
 
 // List available printers
 async function scanPrinters() {
   try {
-    const result = await MkPrinter.listenPrinters();
+    const result = await Mpb20Printer.listenPrinters();
     console.log('Available printers:', result.devices);
   } catch (error) {
     console.error('Error scanning printers:', error);
@@ -141,7 +141,7 @@ async function scanPrinters() {
 // Connect to a printer
 async function connect(macAddress: string) {
   try {
-    await MkPrinter.connectPrinter({ macAddress });
+    await Mpb20Printer.connectPrinter({ macAddress });
     console.log('Connected successfully');
   } catch (error) {
     console.error('Connection failed:', error);
@@ -151,7 +151,7 @@ async function connect(macAddress: string) {
 // Get current printer information
 async function getCurrentPrinter() {
   try {
-    const printer = await MkPrinter.getCurrentPrinter();
+    const printer = await Mpb20Printer.getCurrentPrinter();
     console.log('Current printer:', printer);
   } catch (error) {
     console.error('Error getting current printer:', error);
@@ -161,7 +161,7 @@ async function getCurrentPrinter() {
 // Print an image
 async function printImage(base64Data: string) {
   try {
-    await MkPrinter.printImage({ base64Data });
+    await Mpb20Printer.printImage({ base64Data });
     console.log('Image printed successfully');
   } catch (error) {
     console.error('Error printing image:', error);

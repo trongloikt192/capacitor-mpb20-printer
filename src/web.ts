@@ -2,15 +2,14 @@ import { WebPlugin } from '@capacitor/core';
 
 import {
   PrintImageOptions,
-  MkPrinterPlugin,
+  Mpb20PrinterPlugin,
   PrintTextOptions,
   StatusPrinterOptions,
   BluetoothDevices,
 } from './definitions';
 
-export class MkPrinterWeb extends WebPlugin implements MkPrinterPlugin {
+export class Mpb20PrinterWeb extends WebPlugin implements Mpb20PrinterPlugin {
   async echo(options: { value: string }): Promise<{ value: string }> {
-    console.log('ECHO', options);
     return options;
   }
 

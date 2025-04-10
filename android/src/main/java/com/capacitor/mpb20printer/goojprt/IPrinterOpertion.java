@@ -1,4 +1,4 @@
-package com.capacitor.mkprinter.goojprt;
+package com.capacitor.mpb20printer.goojprt;
 
 
 import android.content.Context;

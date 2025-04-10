@@ -1,4 +1,4 @@
-package com.capacitor.mkprinter.goojprt.bluetooth;
+package com.capacitor.mpb20printer.goojprt.bluetooth;
 
 
 import android.app.Activity;
@@ -11,7 +11,7 @@ import android.content.IntentFilter;
 import android.hardware.usb.UsbManager;
 import android.os.Handler;
 
-import com.capacitor.mkprinter.goojprt.IPrinterOpertion;
+import com.capacitor.mpb20printer.goojprt.IPrinterOpertion;
 import com.android.print.sdk.PrinterInstance;
 import com.android.print.sdk.PrinterConstants.Connect;
 import com.android.print.sdk.bluetooth.BluetoothPort;

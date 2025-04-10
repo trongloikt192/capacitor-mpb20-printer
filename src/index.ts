@@ -1,10 +1,10 @@
 import { registerPlugin } from '@capacitor/core';
 
-import type { MkPrinterPlugin } from './definitions';
+import type { Mpb20PrinterPlugin } from './definitions';
 
-const MkPrinter = registerPlugin<MkPrinterPlugin>('MkPrinter', {
-  web: () => import('./web').then(m => new m.MkPrinterWeb()),
+const Mpb20Printer = registerPlugin<Mpb20PrinterPlugin>('Mpb20Printer', {
+  web: () => import('./web').then(m => new m.Mpb20PrinterWeb()),
 });
 
 export * from './definitions';
-export { MkPrinter };
+export { Mpb20Printer };

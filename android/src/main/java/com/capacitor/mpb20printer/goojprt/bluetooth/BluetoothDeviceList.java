@@ -1,4 +1,4 @@
-package com.capacitor.mkprinter.goojprt.bluetooth;
+package com.capacitor.mpb20printer.goojprt.bluetooth;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;

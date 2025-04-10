@@ -1,4 +1,4 @@
-package com.capacitor.mkprinter.zebra;
+package com.capacitor.mpb20printer.zebra;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

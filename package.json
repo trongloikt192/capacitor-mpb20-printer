@@ -1,7 +1,7 @@
 {
-  "name": "capacitor-mk-printer",
-  "version": "1.0.3",
-  "description": "MK printer",
+  "name": "capacitor-mpb20-printer",
+  "version": "0.0.1",
+  "description": "Capacitor connect to SII MP-B20 printer",
   "main": "dist/plugin.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
@@ -28,17 +28,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/trongloikt192/capacitor-mk-printer.git"
+    "url": "git+https://github.com/trongloikt192/capacitor-mpb20-printer.git"
   },
   "bugs": {
-    "url": "https://github.com/trongloikt192/capacitor-mk-printer/issues"
+    "url": "https://github.com/trongloikt192/capacitor-mpb20-printer/issues"
   },
   "keywords": [
     "capacitor",
     "plugin",
     "native",
     "printer",
-    "mk-printer"
+    "mpb20"
   ],
   "files": [
     "dist/",
@@ -48,7 +48,7 @@
     "android/build.gradle",
     "android/gradle.properties",
     "android/settings.gradle",
-    "CapacitorMkPrinter.podspec"
+    "CapacitorMpb20Printer.podspec"
   ],
   "capacitor": {
     "ios": {
